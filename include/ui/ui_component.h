@@ -35,9 +35,9 @@ typedef struct UIComponent
 
     void* component_data;
 
-    struct UIComponent* components;
-    unsigned int        component_count;
-    unsigned int        component_capacity;
+    struct UIComponent** components;
+    unsigned int        components_size;
+    unsigned int        components_capacity;
     
     void (*update)(struct UIComponent*);
     void (*draw)(struct UIComponent*);
@@ -45,5 +45,6 @@ typedef struct UIComponent
 
 void addUIComponent(UIComponent* ui_component_parent, UIComponent* ui_component_child);
 void removeUIComponent(UIComponent* ui_component_parent, UIComponent* ui_component_child);
+void destroyUIComponent(UIComponent* ui_component);
 
 #endif // UI_COMPONENT
