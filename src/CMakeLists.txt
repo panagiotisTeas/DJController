@@ -3,6 +3,8 @@ add_executable(dj-console)
 target_sources(dj-console
     PRIVATE
         main.c
+        ui/ui_component.c
+        ui/panels/browser_panel.c
 )
 
 set_project_warnings(dj-console)

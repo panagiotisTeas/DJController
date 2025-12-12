@@ -9,6 +9,7 @@ function(set_project_warnings target)
             -Wall
             -Wextra
             -Wpedantic
+            -Wno-unused-parameter
     )
     target_compile_definitions(${target} PRIVATE ENABLE_WARNINGS=${ENABLE_WARNINGS})
 

@@ -29,15 +29,14 @@ typedef union
 
 typedef struct UIComponent
 {
-    Rectangle       bounds;
     ComponentType   component_type;
     ElementType     element_type;
 
     void* component_data;
 
-    struct UIComponent** components;
-    unsigned int        components_size;
-    unsigned int        components_capacity;
+    struct UIComponent**    components;
+    unsigned int            components_size;
+    unsigned int            components_capacity;
     
     void (*update)(struct UIComponent*);
     void (*draw)(struct UIComponent*);
