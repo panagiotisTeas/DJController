@@ -736,6 +736,7 @@ RAYGUIAPI int GuiScrollPanel(Rectangle bounds, const char *text, Rectangle conte
 // Basic controls set
 RAYGUIAPI int GuiLabel(Rectangle bounds, const char *text);                                            // Label control
 RAYGUIAPI int GuiButton(Rectangle bounds, const char *text);                                           // Button control, returns true when clicked
+RAYGUIAPI int GuiButtonCustom(Rectangle bounds, const char *text, Color bkg_color);                    //? Custom Button control, returns true when clicked 
 RAYGUIAPI int GuiLabelButton(Rectangle bounds, const char *text);                                      // Label button control, returns true when clicked
 RAYGUIAPI int GuiToggle(Rectangle bounds, const char *text, bool *active);                             // Toggle Button control
 RAYGUIAPI int GuiToggleGroup(Rectangle bounds, const char *text, int *active);                         // Toggle Group control
@@ -2024,6 +2025,40 @@ int GuiButton(Rectangle bounds, const char *text)
 
     return result;      // Button pressed: result = 1
 }
+
+//? Custom Button control, returns true when clicked 
+int GuiButtonCustom(Rectangle bounds, const char *text, Color bkg_color)
+{
+    int result = 0;
+    GuiState state = guiState;
+
+    // Update control
+    //--------------------------------------------------------------------
+    if ((state != STATE_DISABLED) && !guiLocked && !guiControlExclusiveMode)
+    {
+        Vector2 mousePoint = GetMousePosition();
+
+        // Check button state
+        if (CheckCollisionPointRec(mousePoint, bounds))
+        {
+            if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) state = STATE_PRESSED;
+            else state = STATE_FOCUSED;
+
+            if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) result = 1;
+        }
+    }
+    //--------------------------------------------------------------------
+
+    // Draw control
+    //--------------------------------------------------------------------
+    GuiDrawRectangle(bounds, GuiGetStyle(BUTTON, BORDER_WIDTH), GetColor(GuiGetStyle(BUTTON, BORDER + (state*3))), bkg_color);
+    GuiDrawText(text, GetTextBounds(BUTTON, bounds), GuiGetStyle(BUTTON, TEXT_ALIGNMENT), GetColor(GuiGetStyle(BUTTON, TEXT + (state*3))));
+
+    if (state == STATE_FOCUSED) GuiTooltip(bounds);
+    //------------------------------------------------------------------
+
+    return result;      // Button pressed: result = 1
+}                   
 
 // Label button control
 int GuiLabelButton(Rectangle bounds, const char *text)

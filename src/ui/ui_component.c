@@ -49,10 +49,7 @@ void destroyUIComponent(UIComponent* ui_component)
 {
     assert(!(ui_component == NULL) && "ui_component is NULL!\n");
 
-    if (ui_component->component_data != NULL)
-    {
-        free(ui_component->component_data);
-    }
+    ui_component->destroyComponentData(ui_component->component_data);
 
     for(unsigned int i = 0; i < ui_component->components_size; i++)
     {

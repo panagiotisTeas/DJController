@@ -22,16 +22,8 @@ int main()
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
     
     UIBrowserPanelData* data = (UIBrowserPanelData*)malloc(sizeof(UIBrowserPanelData)); 
-    data->color = GRAY;
-    data->bounds = (Rectangle){0, 0, 100, 100};
+    data->bounds = (Rectangle){0, 300, 300, 300};
     UIComponent* browser_panel = createBrowserPanel(data);
-
-    UIBrowserPanelData* data_ = (UIBrowserPanelData*)malloc(sizeof(UIBrowserPanelData)); 
-    data_->color = RED;
-    data_->bounds = (Rectangle){10, 10, 100, 100};
-    UIComponent* browser_panel_ = createBrowserPanel(data_);
-
-    addUIComponent(browser_panel, browser_panel_);
 
     while(!WindowShouldClose())
     {
@@ -44,6 +36,8 @@ int main()
 
         BeginDrawing();
         {
+            ClearBackground(RAYWHITE);
+
             //* --- Render ---
 
             browser_panel->draw(browser_panel);

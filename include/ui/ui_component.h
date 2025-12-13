@@ -40,6 +40,7 @@ typedef struct UIComponent
     
     void (*update)(struct UIComponent*);
     void (*draw)(struct UIComponent*);
+    void (*destroyComponentData)(void* data); //? default must be `free()`
 } UIComponent;
 
 void addUIComponent(UIComponent* ui_component_parent, UIComponent* ui_component_child);
